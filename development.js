@@ -2,7 +2,7 @@ import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 const src  = path.resolve(__dirname, 'src')
-const dist = path.resolve(__dirname, 'dist')
+const dist = path.resolve(__dirname, 'public')
 
 export default {
   // ビルドのモード指定
@@ -32,13 +32,4 @@ export default {
   resolve: {
     extensions: ['.js', '.jsx']
   },
-
-  // プラグイン設定
-  // ビルド時にhtmlも出力する
-  plugins: [
-    new HtmlWebpackPlugin({
-        template: src + '/index.html',
-        filename: 'index.html'
-    })
-  ]
 }
