@@ -14,7 +14,7 @@ export default class SideMenu extends React.Component {
         <h4 className='card-title'>Pallet</h4>
         <div id='pallet'>
           {/* TODO onChange */}
-          <ChromePicker color={ this.props.currentColor } onChange={ this.props.onClick } />
+          <ChromePicker color={ this.props.currentColor } onChange={ this.props.onChange } />
         </div>
         <h4 className='card-title'>Tools</h4>
         {/* TODO */}

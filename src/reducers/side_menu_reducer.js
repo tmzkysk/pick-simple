@@ -1,11 +1,11 @@
-import CHANGE_PICKER from '../constants/side_menu_constant'
+import * as sidemenuType from './../constants/side_menu_constant'
 
 // reducerの定義
 export default function SideMenuReducer(state, action) {
   switch (action.type) {
-    case CHANGE_PICKER:
+    case sidemenuType.CHANGE_PICKER:
       return Object.assign({}, state, {
-        currentColor: action.value,
+        currentColor: action.value.rgb,
       });
     default:
       return state;

@@ -3,6 +3,7 @@ import render from 'react-dom'
 import { connect } from 'react-redux'
 import MainCanvas from './../components/main_canvas'
 import SideMenu from './../components/side_menu'
+import * as sideMenuAction from './../actions/side_menu_action'
 
 class App extends React.Component {
   render() {
@@ -13,7 +14,7 @@ class App extends React.Component {
             <MainCanvas data={this.props.canvas} />
           </div>
           <div className='col-md-6'>
-            <SideMenu currentColor={this.props.currentColor} />
+            <SideMenu currentColor={this.props.currentColor} onChange={this.props.pickerChange} />
           </div>
         </div>
       </div>
@@ -32,11 +33,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   // TODO
-  // return {
-  //   onClick(value) {
-  //     dispatch(send(value));
-  //   },
-  // }
+  return {
+    pickerChange(value) {
+      dispatch(sideMenuAction.change(value));
+    },
+  }
 }
 
 const AppContainer = connect(

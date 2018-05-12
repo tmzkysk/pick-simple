@@ -1,1 +1,1 @@
-export default 'CHANGE_PICKER';
+export const CHANGE_PICKER = 'CHANGE_PICKER';
