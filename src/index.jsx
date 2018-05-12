@@ -1,30 +1,23 @@
 import React from 'react'
-import { render } from 'react-dom'
-import { ChromePicker } from 'react-color'
+import ReactDom from 'react-dom'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import SideMenuReducer       from './reducers/side_menu_reducer'
+import AppContainer from './containers/container'
 
-class ButtonExample extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      color: {
-        r: '241',
-        g: '112',
-        b: '255',
-        a: '1',
-      },
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(color) {
-    this.setState({ color: color.rgb })
-  }
-
-  render() {
-    return (
-      <ChromePicker color={ this.state.color } onChange={ this.handleChange } />
-    )
-  }
+// 初期state
+// TODO: マスは32 × 32固定
+const initialState = {
+  currentColor: { r: '0', g: '0', b: '0', a: '1' },
+  canvas: new Array(32, {r:0 , g:0 , b:0 }),
+  prevCanvas: new Array(32, {r:0 , g:0 , b:0 }),
 }
 
-render(<ButtonExample/>, document.getElementById('pallet'))
+const store = createStore(SideMenuReducer, initialState);
+
+ReactDom.render(
+  <Provider store={store}>
+    <AppContainer />
+  </Provider>,
+  document.getElementById('main')
+);

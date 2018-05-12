@@ -5,6 +5,7 @@ const dist = path.resolve(__dirname, 'public')
 export default {
   // ビルドのモード指定
   mode: 'development',
+  devtool: 'inline-source-map',
 
   // ビルドを始める際の開始点
   entry: src + '/index.jsx',
