@@ -1,24 +1,30 @@
 import React from 'react'
 import { render } from 'react-dom'
+import { ChromePicker } from 'react-color'
 
-class App extends React.Component {
-  constructor(props) { 
-    super(props)
-    this.state = { message: 'something' }
+class ButtonExample extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      color: {
+        r: '241',
+        g: '112',
+        b: '255',
+        a: '1',
+      },
+    };
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  onChange(e) {
-     this.setState( {message: e.target.value} )
+  handleChange(color) {
+    this.setState({ color: color.rgb })
   }
 
   render() {
     return (
-      <div>
-        <input type="text" onChange = { this.onChange.bind(this) } />
-        <p>{ this.state.message }</p>
-      </div>
+      <ChromePicker color={ this.state.color } onChange={ this.handleChange } />
     )
   }
 }
 
-render(<App/>, document.getElementById('app'))
+render(<ButtonExample/>, document.getElementById('pallet'))

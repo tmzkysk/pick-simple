@@ -1,8 +1,21 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+.wrapper {
+  margin-top: 10px;
+}
+
+#canvas1 {
+  height: 256px;
+  width: 256px;
+  border: 1px solid #C0C0C0;
+}
+
+#pallet {
+  height: 270px; 
 }
