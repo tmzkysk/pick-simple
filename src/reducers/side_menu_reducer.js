@@ -1,7 +1,7 @@
 import * as sidemenuType from './../constants/side_menu_constant'
 
 const initialState = {
-  currentColor: '#000000',
+  currentColor: '#000000'
 }
 
 // reducerの定義

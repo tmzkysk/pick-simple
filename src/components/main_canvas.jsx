@@ -4,8 +4,8 @@ import { render } from 'react-dom'
 // TODO: ココらへんの大きさは可変にしたい
 const canvasWidth = 512
 const canvasHeight = 512
-const picSize = 16
-const numOfPic = 32
+const pixelSize = 16
+const numOfPixel = 32
 
 export default class MainCanvas extends React.Component {
   constructor() {
@@ -31,32 +31,39 @@ export default class MainCanvas extends React.Component {
     var rect   = canvas.getBoundingClientRect()
 
     // クリックされた位置を取得(2は枠線のサイズ)
-    var x = parseInt((e.pageX - rect.left - 2) / picSize)
-    var y = parseInt((e.pageY - rect.top - 2) / picSize)
+    var x = parseInt((e.pageX - rect.left - 2) / pixelSize)
+    var y = parseInt((e.pageY - rect.top - 2) / pixelSize)
     var ctx = canvas.getContext('2d')
 
     this.add(ctx, x, y)
 
-    // this.fill(ctx, x, y, this.data[y][x])
+    // if fill? {
+    //  ctx.beginPath()
+    //  this.fill(ctx, x, y, this.data[y][x])
+    //  ctx.fill();
+    // }
     this.props.onClick(this.data)
   }
 
   // 1ピクセル書き込む
   add(ctx, x, y) {
+    ctx.beginPath()
     ctx.fillStyle = this.color
-    ctx.fillRect(x * picSize, y * picSize, picSize, picSize)
+    ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize)
+
     this.data[y][x] = this.color
   }
 
   // 塗りつぶし
   fill(ctx, x, y, originalColor) {
     // クリックしたピクセルと違う色に当たるまで再帰的に行う
-    if (x < 0 || x >= numOfPic) { return }
-    if (y < 0 || y >= numOfPic) { return }
+    if (x < 0 || x >= numOfPixel) { return }
+    if (y < 0 || y >= numOfPixel) { return }
     if (this.data[y][x] != originalColor) { return }
 
+    ctx.beginPath()
     ctx.fillStyle = this.color
-    ctx.fillRect(x * picSize, y * picSize, picSize, picSize)
+    ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize)
 
     this.data[y][x] = this.color
 
