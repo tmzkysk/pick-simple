@@ -1,19 +1,17 @@
 import React from 'react'
 import ReactDom from 'react-dom'
-import { createStore } from 'redux'
+import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
-import SideMenuReducer       from './reducers/side_menu_reducer'
+import SideMenuReducer from './reducers/side_menu_reducer'
+import CanvasReducer from './reducers/canvas_reducer'
 import AppContainer from './containers/container'
 
-// 初期state
-// TODO: マスは32 × 32固定
-const initialState = {
-  currentColor: '#000000',
-  canvas: new Array(32, '#FFFFFF'),
-  prevCanvas: new Array(32, '#FFFFFF'),
-}
+const combinedReducer = combineReducers({
+  SideMenuReducer,
+  CanvasReducer
+})
 
-const store = createStore(SideMenuReducer, initialState);
+const store = createStore(combinedReducer);
 
 ReactDom.render(
   <Provider store={store}>

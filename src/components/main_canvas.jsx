@@ -29,6 +29,8 @@ export default class MainCanvas extends React.Component {
     var ctx      = canvas.getContext('2d')
     ctx.fillStyle = this.color
     ctx.fillRect(position.x * picSize, position.y * picSize, picSize, picSize);
+    this.data[position.y][position.x] = this.color
+    this.props.onClick(this.data)
   }
 
   // 現在位置を取得

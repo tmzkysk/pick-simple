@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import MainCanvas from './../components/main_canvas'
 import SideMenu from './../components/side_menu'
 import * as sideMenuAction from './../actions/side_menu_action'
+import * as canvasAction from './../actions/canvas_action'
 
 class App extends React.Component {
   render() {
@@ -11,7 +12,11 @@ class App extends React.Component {
       <div className='container'>
         <div className='row wrapper'>
           <div className='col-md-6'>
-            <MainCanvas data={this.props.canvas} currentColor={this.props.currentColor} />
+            <MainCanvas
+              data={this.props.canvas}
+              currentColor={this.props.currentColor}
+              onClick={this.props.addPixel}
+            />
           </div>
           <div className='col-md-6'>
             <SideMenu currentColor={this.props.currentColor} onChange={this.props.pickerChange} />
@@ -25,8 +30,8 @@ class App extends React.Component {
 // Connect to Redux
 const mapStateToProps = (state) => {
   return {
-    currentColor: state.currentColor,
-    canvas:       state.canvas,
+    currentColor: state.SideMenuReducer.currentColor,
+    canvas:       state.CanvasReducer.canvas,
     prevCanvas:   state.prevCanvas,
   }
 }
@@ -36,6 +41,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     pickerChange(value) {
       dispatch(sideMenuAction.change(value));
+    },
+    addPixel(value) {
+      dispatch(canvasAction.change(value));
     },
   }
 }
