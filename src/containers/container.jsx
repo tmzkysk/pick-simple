@@ -11,7 +11,7 @@ class App extends React.Component {
       <div className='container'>
         <div className='row wrapper'>
           <div className='col-md-6'>
-            <MainCanvas data={this.props.canvas} />
+            <MainCanvas data={this.props.canvas} currentColor={this.props.currentColor} />
           </div>
           <div className='col-md-6'>
             <SideMenu currentColor={this.props.currentColor} onChange={this.props.pickerChange} />

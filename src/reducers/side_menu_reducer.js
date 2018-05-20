@@ -5,7 +5,7 @@ export default function SideMenuReducer(state, action) {
   switch (action.type) {
     case sidemenuType.CHANGE_PICKER:
       return Object.assign({}, state, {
-        currentColor: action.value.rgb,
+        currentColor: action.value.hex,
       });
     default:
       return state;

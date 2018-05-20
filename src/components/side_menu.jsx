@@ -3,10 +3,6 @@ import { render } from 'react-dom'
 import { ChromePicker } from 'react-color'
 
 export default class SideMenu extends React.Component {
-  constructor() {
-    super();
-  }
-
   render() {
     return (
       <div className='card'>

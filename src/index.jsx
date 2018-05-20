@@ -8,9 +8,9 @@ import AppContainer from './containers/container'
 // 初期state
 // TODO: マスは32 × 32固定
 const initialState = {
-  currentColor: { r: '0', g: '0', b: '0', a: '1' },
-  canvas: new Array(32, {r:0 , g:0 , b:0 }),
-  prevCanvas: new Array(32, {r:0 , g:0 , b:0 }),
+  currentColor: '#000000',
+  canvas: new Array(32, '#FFFFFF'),
+  prevCanvas: new Array(32, '#FFFFFF'),
 }
 
 const store = createStore(SideMenuReducer, initialState);
