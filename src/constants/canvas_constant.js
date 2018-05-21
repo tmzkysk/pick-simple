@@ -1,1 +1,1 @@
-export const CLICK_PIXEL = 'CLICK_PIXEL';
+export const ADD_PIXEL = 'ADD_PIXEL';

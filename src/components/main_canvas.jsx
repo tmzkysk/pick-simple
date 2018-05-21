@@ -13,6 +13,7 @@ export default class MainCanvas extends React.Component {
     this.onMouseDown = this.onMouseDown.bind(this)
     this.add         = this.add.bind(this)
     this.fill        = this.fill.bind(this)
+    this.pickup      = this.pickup.bind(this)
   }
 
   componentDidMount() {
@@ -35,6 +36,12 @@ export default class MainCanvas extends React.Component {
     var y = parseInt((e.pageY - rect.top - 2) / pixelSize)
     var ctx = canvas.getContext('2d')
 
+    // シフト同時押しの場合は現在の色を変える
+    if(e.nativeEvent.shiftKey){
+      this.pickup(x, y)
+      return
+    }
+
     this.add(ctx, x, y)
 
     // if fill? {
@@ -43,6 +50,11 @@ export default class MainCanvas extends React.Component {
     //  ctx.fill();
     // }
     this.props.onClick(this.data)
+  }
+
+  // 選択したピクセルの色を現在の色にする
+  pickup(x, y) {
+    this.props.onShiftClick(this.data[y][x])
   }
 
   // 1ピクセル書き込む
@@ -66,7 +78,6 @@ export default class MainCanvas extends React.Component {
     ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize)
 
     this.data[y][x] = this.color
-
     this.fill(ctx, x,   y-1, originalColor)
     this.fill(ctx, x-1, y,   originalColor)
     this.fill(ctx, x,   y+1, originalColor)
@@ -75,7 +86,10 @@ export default class MainCanvas extends React.Component {
 
   render() {
     return (
-      <canvas id='canvas1' className='mx-auto' onClick={this.onMouseDown} ref='canvas' width={canvasWidth} height={canvasHeight} />
+      <canvas id='canvas1' className='mx-auto'
+        ref='canvas' width={canvasWidth} height={canvasHeight}
+        onClick={this.onMouseDown}
+      />
     )
   }
 }

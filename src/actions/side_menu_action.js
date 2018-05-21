@@ -1,8 +1,8 @@
-import * as type from './../constants/side_menu_constant'
+import * as ColorConstant from './../constants/color_constant'
 
-export function change(value) {
+export function changeColor(value) {
   return {
-    type: type.CHANGE_PICKER,
+    type: ColorConstant.CHANGE_COLOR,
     value,
   }
 }

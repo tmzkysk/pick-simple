@@ -1,8 +1,16 @@
-import * as type from './../constants/canvas_constant'
+import * as CanvasConstant from './../constants/canvas_constant'
+import * as ColorConstant from './../constants/color_constant'
 
-export function change(value) {
+export function addPixel(value) {
   return {
-    type: type.CLICK_PIXEL,
+    type: CanvasConstant.ADD_PIXEL,
+    value,
+  }
+}
+
+export function pickupColor(value) {
+  return {
+    type: ColorConstant.PICKUP_COLOR,
     value,
   }
 }

@@ -16,6 +16,7 @@ class App extends React.Component {
               data={this.props.canvas}
               currentColor={this.props.currentColor}
               onClick={this.props.addPixel}
+              onShiftClick={this.props.pickupColor}
             />
           </div>
           <div className='col-md-6'>
@@ -30,7 +31,7 @@ class App extends React.Component {
 // Connect to Redux
 const mapStateToProps = (state) => {
   return {
-    currentColor: state.SideMenuReducer.currentColor,
+    currentColor: state.ColorReducer.currentColor,
     canvas:       state.CanvasReducer.canvas,
     prevCanvas:   state.prevCanvas,
   }
@@ -40,10 +41,13 @@ const mapDispatchToProps = (dispatch) => {
   // TODO
   return {
     pickerChange(value) {
-      dispatch(sideMenuAction.change(value));
+      dispatch(sideMenuAction.changeColor(value));
     },
     addPixel(value) {
-      dispatch(canvasAction.change(value));
+      dispatch(canvasAction.addPixel(value));
+    },
+    pickupColor(value) {
+      dispatch(canvasAction.pickupColor(value));
     },
   }
 }

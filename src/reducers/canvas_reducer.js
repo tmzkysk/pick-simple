@@ -1,4 +1,4 @@
-import * as canvasType from './../constants/canvas_constant'
+import * as CanvasConstant from './../constants/canvas_constant'
 
 // TODO: ピクセル数は可変にしたい
 var dataTable = new Array(32);
@@ -13,7 +13,7 @@ const initialState = {
 // reducerの定義
 export default function SideMenuReducer(state=initialState, action) {
   switch (action.type) {
-    case canvasType.CLICK_PIXEL:
+    case CanvasConstant.ADD_PIXEL:
       return Object.assign({}, state, {
         canvas: action.value,
       });
