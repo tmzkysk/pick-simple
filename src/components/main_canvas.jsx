@@ -10,10 +10,12 @@ const numOfPixel = 32
 export default class MainCanvas extends React.Component {
   constructor() {
     super()
-    this.onMouseDown = this.onMouseDown.bind(this)
-    this.add         = this.add.bind(this)
-    this.fill        = this.fill.bind(this)
-    this.pickup      = this.pickup.bind(this)
+    this.onMouseDown  = this.onMouseDown.bind(this)
+    this.add          = this.add.bind(this)
+    this.fill         = this.fill.bind(this)
+    this.pickup       = this.pickup.bind(this)
+    this.onMouseMove  = this.onMouseMove.bind(this)
+    this.onMouseLeave = this.onMouseLeave.bind(this)
   }
 
   componentDidMount() {
@@ -28,6 +30,7 @@ export default class MainCanvas extends React.Component {
 
   // canvasクリック時の処理
   onMouseDown(e) {
+    this.mouseClick = true
     var canvas = this.refs.canvas
     var rect   = canvas.getBoundingClientRect()
 
@@ -42,8 +45,7 @@ export default class MainCanvas extends React.Component {
       return
     }
 
-    this.add(ctx, x, y)
-
+    this.add(x, y)
     // if fill? {
     //  ctx.beginPath()
     //  this.fill(ctx, x, y, this.data[y][x])
@@ -52,13 +54,36 @@ export default class MainCanvas extends React.Component {
     this.props.onClick(this.data)
   }
 
+  // ドラッグしたとき
+  onMouseMove(e) {
+    if (!this.mouseClick) {
+      return false
+    }
+    var canvas = this.refs.canvas
+    var rect   = canvas.getBoundingClientRect()
+
+    // クリックされた位置を取得(2は枠線のサイズ)
+    var x = parseInt((e.pageX - rect.left - 2) / pixelSize)
+    var y = parseInt((e.pageY - rect.top - 2) / pixelSize)
+    var ctx = canvas.getContext('2d')
+
+    this.add(x, y)
+  }
+
+  // ドラッグをやめたとき
+  onMouseLeave(e) {
+    this.mouseClick = false
+  }
+
   // 選択したピクセルの色を現在の色にする
   pickup(x, y) {
     this.props.onShiftClick(this.data[y][x])
   }
 
   // 1ピクセル書き込む
-  add(ctx, x, y) {
+  add(x, y) {
+    var canvas = this.refs.canvas
+    var ctx = canvas.getContext('2d')
     ctx.beginPath()
     ctx.fillStyle = this.color
     ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize)
@@ -88,7 +113,10 @@ export default class MainCanvas extends React.Component {
     return (
       <canvas id='canvas1' className='mx-auto'
         ref='canvas' width={canvasWidth} height={canvasHeight}
-        onClick={this.onMouseDown}
+        onMouseDown={this.onMouseDown}
+        onMouseMove={this.onMouseMove}
+        onMouseLeave={this.onMouseLeave}
+        onMouseUp={this.onMouseLeave}
       />
     )
   }
