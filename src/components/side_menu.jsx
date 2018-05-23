@@ -3,6 +3,23 @@ import { render } from 'react-dom'
 import { ChromePicker } from 'react-color'
 
 export default class SideMenu extends React.Component {
+  constructor() {
+    super()
+    this.onClick  = this.onClick.bind(this)
+  }
+
+  componentDidMount() {
+    this.fillColor = this.props.fillColor
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.fillColor = nextProps.fillColor
+  }
+
+  onClick() {
+    this.props.onFillClick()
+  }
+
   render() {
     return (
       <div className='card'>
@@ -13,7 +30,7 @@ export default class SideMenu extends React.Component {
         </div>
         <h4 className='card-title'>Tools</h4>
         {/* TODO */}
-        <button className='btn btn-primary'>塗りつぶし</button>
+        <button onClick={this.onClick} className='btn btn-primary'>{this.fillColor ? '塗りつぶし解除' : '塗りつぶし'}</button>
         <button className='btn btn-primary'>回転</button>
         <button className='btn btn-primary'>undo</button>
         <button className='btn btn-primary'>上下反転</button>

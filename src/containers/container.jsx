@@ -17,10 +17,16 @@ class App extends React.Component {
               currentColor={this.props.currentColor}
               onClick={this.props.addPixel}
               onShiftClick={this.props.pickupColor}
+              fillColor={this.props.fillColor}
             />
           </div>
           <div className='col-md-6'>
-            <SideMenu currentColor={this.props.currentColor} onChange={this.props.pickerChange} />
+            <SideMenu
+              currentColor={this.props.currentColor}
+              onChange={this.props.pickerChange}
+              onFillClick={this.props.changeFillColor}
+              fillColor={this.props.fillColor}
+            />
           </div>
         </div>
       </div>
@@ -33,7 +39,7 @@ const mapStateToProps = (state) => {
   return {
     currentColor: state.ColorReducer.currentColor,
     canvas:       state.CanvasReducer.canvas,
-    prevCanvas:   state.prevCanvas,
+    fillColor:   state.CanvasReducer.fillColor,
   }
 }
 
@@ -48,6 +54,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     pickupColor(value) {
       dispatch(canvasAction.pickupColor(value));
+    },
+    changeFillColor(value) {
+      dispatch(canvasAction.changeFillColor(value));
     },
   }
 }

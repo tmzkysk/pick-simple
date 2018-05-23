@@ -14,3 +14,11 @@ export function pickupColor(value) {
     value,
   }
 }
+
+
+export function changeFillColor(value) {
+  return {
+    type: CanvasConstant.CHANGE_FILL_COLOR,
+    value,
+  }
+}

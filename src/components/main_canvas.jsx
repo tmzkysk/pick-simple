@@ -21,11 +21,13 @@ export default class MainCanvas extends React.Component {
   componentDidMount() {
     this.color = this.props.currentColor
     this.data  = this.props.data
+    this.fillColor  = this.props.fillColor
   }
 
   componentWillReceiveProps(nextProps) {
     this.color = nextProps.currentColor
     this.data  = nextProps.data
+    this.fillColor  = nextProps.fillColor
   }
 
   // canvasクリック時の処理
@@ -45,12 +47,14 @@ export default class MainCanvas extends React.Component {
       return
     }
 
-    this.add(x, y)
-    // if fill? {
-    //  ctx.beginPath()
-    //  this.fill(ctx, x, y, this.data[y][x])
-    //  ctx.fill();
-    // }
+    if (this.fillColor) {
+     ctx.beginPath()
+     this.fill(ctx, x, y, this.data[y][x])
+     ctx.fill();
+    } else {
+      this.add(x, y)
+    }
+
     this.props.onClick(this.data)
   }
 

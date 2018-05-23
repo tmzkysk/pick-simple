@@ -7,7 +7,8 @@ for(let i = 0; i < 32; i++) {
 }
 
 const initialState = {
-  canvas: dataTable
+  canvas: dataTable,
+  fillColor: false,
 }
 
 // reducerの定義
@@ -17,6 +18,10 @@ export default function SideMenuReducer(state=initialState, action) {
       return Object.assign({}, state, {
         canvas: action.value,
       });
+    case CanvasConstant.CHANGE_FILL_COLOR:
+    return Object.assign({}, state, {
+      fillColor: !state.fillColor,
+    });
     default:
       return state;
   }
