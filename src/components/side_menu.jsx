@@ -9,11 +9,11 @@ export default class SideMenu extends React.Component {
   }
 
   componentDidMount() {
-    this.fillColor = this.props.fillColor
+    this.fillColor = this.props.status.fillColor
   }
 
   componentWillReceiveProps(nextProps) {
-    this.fillColor = nextProps.fillColor
+    this.fillColor = nextProps.status.fillColor
   }
 
   onClick() {

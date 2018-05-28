@@ -1,2 +1,1 @@
-export const ADD_PIXEL = 'ADD_PIXEL';
-export const CHANGE_FILL_COLOR = 'CHANGE_FILL_COLOR';
+export const ADD_PIXEL = 'ADD_PIXEL'
