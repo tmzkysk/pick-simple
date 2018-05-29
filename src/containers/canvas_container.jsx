@@ -3,16 +3,16 @@ import render from 'react-dom'
 import { connect } from 'react-redux'
 import MainCanvas from './../components/main_canvas'
 import * as canvasAction from './../actions/canvas_action'
+import * as conditionAction from './../actions/condition_action'
 
 class Canvas extends React.Component {
   render() {
     return (
       <MainCanvas
         data={this.props.canvas}
-        currentColor={this.props.currentColor}
+        condition={this.props.condition}
         onClick={this.props.addPixel}
         onShiftClick={this.props.pickupColor}
-        status={this.props.status}
       />
     )
   }
@@ -21,9 +21,8 @@ class Canvas extends React.Component {
 // Connect to Redux
 const mapStateToProps = (state) => {
   return {
-    canvas:       state.CanvasReducer.canvas,
-    currentColor: state.SideMenuReducer.currentColor,
-    status:       state.SideMenuReducer.status,
+    canvas:    state.CanvasReducer.canvas,
+    condition: state.ConditionReducer.condition,
   }
 }
 
@@ -34,7 +33,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(canvasAction.addPixel(value));
     },
     pickupColor(value) {
-      dispatch(canvasAction.pickupColor(value));
+      dispatch(conditionAction.pickupColor(value));
     },
   }
 }

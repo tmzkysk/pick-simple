@@ -9,11 +9,11 @@ export default class SideMenu extends React.Component {
   }
 
   componentDidMount() {
-    this.fillColor = this.props.status.fillColor
+    this.fillColor = this.props.condition.fillColor
   }
 
   componentWillReceiveProps(nextProps) {
-    this.fillColor = nextProps.status.fillColor
+    this.fillColor = nextProps.condition.fillColor
   }
 
   onClick() {
@@ -26,11 +26,11 @@ export default class SideMenu extends React.Component {
       <div className='card-body'>
         <h4 className='card-title'>Pallet</h4>
         <div id='pallet'>
-          <ChromePicker color={ this.props.currentColor } onChange={ this.props.onChange } disableAlpha />
+          <ChromePicker color={ this.props.condition.currentColor } onChange={ this.props.onChange } disableAlpha />
         </div>
         <h4 className='card-title'>Tools</h4>
         {/* TODO */}
-        <button onClick={this.onClick} className='btn btn-primary'>{this.fillColor ? '塗りつぶし解除' : '塗りつぶし'}</button>
+        <button onClick={this.onClick} className='btn btn-primary'>{this.props.condition.fillColor ? '塗りつぶし解除' : '塗りつぶし'}</button>
         <button className='btn btn-primary'>回転</button>
         <button className='btn btn-primary'>undo</button>
         <button className='btn btn-primary'>上下反転</button>

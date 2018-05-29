@@ -9,74 +9,78 @@ const numOfPixel = 32
 
 export default class MainCanvas extends React.Component {
   constructor() {
-    super()
-    this.onMouseDown  = this.onMouseDown.bind(this)
-    this.add          = this.add.bind(this)
-    this.fill         = this.fill.bind(this)
-    this.pickup       = this.pickup.bind(this)
-    this.onMouseMove  = this.onMouseMove.bind(this)
-    this.onMouseLeave = this.onMouseLeave.bind(this)
+    super();
+    this.data = null;
+
+    this.onMouseDown  = this.onMouseDown.bind(this);
+    this.add          = this.add.bind(this);
+    this.fill         = this.fill.bind(this);
+    this.pickup       = this.pickup.bind(this);
+    this.onMouseMove  = this.onMouseMove.bind(this);
+    this.onMouseLeave = this.onMouseLeave.bind(this);
   }
 
   componentDidMount() {
-    this.color = this.props.currentColor
-    this.data  = this.props.data
-    this.fillColor  = this.props.status.fillColor
+    // deep copyしてstateとしておいておく
+    this.data = JSON.parse(JSON.stringify(this.props.data));
   }
 
   componentWillReceiveProps(nextProps) {
-    this.color = nextProps.currentColor
-    this.data  = nextProps.data
-    this.fillColor  = nextProps.status.fillColor
+    // deep copyしてstateとしておいておく
+    this.data = JSON.parse(JSON.stringify(nextProps.data));
   }
 
   // canvasクリック時の処理
   onMouseDown(e) {
-    this.mouseClick = true
-    var canvas = this.refs.canvas
-    var rect   = canvas.getBoundingClientRect()
+    this.mouseClick = true;
+    var canvas = this.refs.canvas;
+    var rect   = canvas.getBoundingClientRect();
 
     // クリックされた位置を取得(2は枠線のサイズ)
-    var x = parseInt((e.pageX - rect.left - 2) / pixelSize)
-    var y = parseInt((e.pageY - rect.top - 2) / pixelSize)
-    var ctx = canvas.getContext('2d')
+    var x = parseInt((e.pageX - rect.left - 2) / pixelSize);
+    var y = parseInt((e.pageY - rect.top - 2) / pixelSize);
+    var ctx = canvas.getContext('2d');
 
     // シフト同時押しの場合は現在の色を変える
     if(e.nativeEvent.shiftKey){
-      this.pickup(x, y)
-      return
+      this.pickup(x, y);
+      return;
     }
 
-    if (this.fillColor) {
-     ctx.beginPath()
-     this.fill(ctx, x, y, this.data[y][x])
+    if (this.props.condition.fillColor) {
+     ctx.beginPath();
+     this.fill(ctx, x, y, this.data[y][x]);
      ctx.fill();
     } else {
-      this.add(x, y)
+      this.add(x, y);
     }
 
-    this.props.onClick(this.data)
+    this.props.onClick(this.data);
   }
 
   // ドラッグしたとき
   onMouseMove(e) {
     if (!this.mouseClick) {
-      return false
+      return false;
     }
-    var canvas = this.refs.canvas
-    var rect   = canvas.getBoundingClientRect()
+    var canvas = this.refs.canvas;
+    var rect   = canvas.getBoundingClientRect();
 
     // クリックされた位置を取得(2は枠線のサイズ)
-    var x = parseInt((e.pageX - rect.left - 2) / pixelSize)
-    var y = parseInt((e.pageY - rect.top - 2) / pixelSize)
-    var ctx = canvas.getContext('2d')
+    var x = parseInt((e.pageX - rect.left - 2) / pixelSize);
+    var y = parseInt((e.pageY - rect.top - 2) / pixelSize);
+    var ctx = canvas.getContext('2d');
 
-    this.add(x, y)
+    this.add(x, y);
+    this.props.onClick(this.data);
   }
 
   // ドラッグをやめたとき
   onMouseLeave(e) {
-    this.mouseClick = false
+    if (this.mouseClick) {
+      this.mouseClick = false
+      this.props.onClick(this.data);
+    }
   }
 
   // 選択したピクセルの色を現在の色にする
@@ -89,10 +93,9 @@ export default class MainCanvas extends React.Component {
     var canvas = this.refs.canvas
     var ctx = canvas.getContext('2d')
     ctx.beginPath()
-    ctx.fillStyle = this.color
+    ctx.fillStyle = this.props.condition.currentColor
     ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize)
-
-    this.data[y][x] = this.color
+    this.data[y][x] = this.props.condition.currentColor
   }
 
   // 塗りつぶし
@@ -103,10 +106,10 @@ export default class MainCanvas extends React.Component {
     if (this.data[y][x] != originalColor) { return }
 
     ctx.beginPath()
-    ctx.fillStyle = this.color
+    ctx.fillStyle = this.props.condition.currentColor
     ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize)
 
-    this.data[y][x] = this.color
+    this.data[y][x] = this.props.condition.currentColor
     this.fill(ctx, x,   y-1, originalColor)
     this.fill(ctx, x-1, y,   originalColor)
     this.fill(ctx, x,   y+1, originalColor)

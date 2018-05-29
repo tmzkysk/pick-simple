@@ -2,12 +2,12 @@ import React from 'react'
 import ReactDom from 'react-dom'
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
-import SideMenuReducer from './reducers/side_menu_reducer'
+import ConditionReducer from './reducers/condition_reducer'
 import CanvasReducer from './reducers/canvas_reducer'
 import App from './components/app'
 
 const combinedReducer = combineReducers({
-  SideMenuReducer,
+  ConditionReducer,
   CanvasReducer
 })
 

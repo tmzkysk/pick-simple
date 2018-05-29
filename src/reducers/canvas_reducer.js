@@ -11,7 +11,7 @@ const initialState = {
 }
 
 // reducerの定義
-export default function SideMenuReducer(state=initialState, action) {
+export default function CanvasReducer(state=initialState, action) {
   switch (action.type) {
     case CanvasConstant.ADD_PIXEL:
       return Object.assign({}, state, {
