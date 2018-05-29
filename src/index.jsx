@@ -11,7 +11,10 @@ const combinedReducer = combineReducers({
   CanvasReducer
 })
 
-const store = createStore(combinedReducer);
+const store = createStore(
+  combinedReducer, /* preloadedState, */
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 ReactDom.render(
   <Provider store={store}>
